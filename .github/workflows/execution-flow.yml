@@ -87,7 +87,7 @@ jobs:
         
       - name: Output contents
         run: ls
-        working-directory: ./01 Starting Project
+        #working-directory: ./01 Starting Project
       - name: Deploy
         run: echo "Deploying..."
   report:
