@@ -13,9 +13,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != true
         run: npm ci
       - name: Lint code
         run: npm run lint
@@ -28,15 +29,16 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != true
         run: npm ci
-        working-directory: ./01 Starting Project
+        #working-directory: ./01 Starting Project
       - name: Test code
         id: run-tests
         run: npm run test
-        working-directory: ./01 Starting Project
+        #working-directory: ./01 Starting Project
       - name: Upload test report
         if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
@@ -56,12 +58,13 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != true
         run: npm ci
-        working-directory: ./01 Starting Project
+        #working-directory: ./01 Starting Project
       - name: Build website
         id: build-website
         run: npm run build
-        working-directory: ./01 Starting Project
+        #working-directory: ./01 Starting Project
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
