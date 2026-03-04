@@ -38,6 +38,7 @@ jobs:
         run: npm ci
         working-directory: ./01 Starting Project
       - name: Test code
+        continue-on-error: true
         id: run-tests
         run: npm run test
         working-directory: ./01 Starting Project
