@@ -78,7 +78,9 @@ jobs:
           path: ./01 Starting Project/dist
   deploy:
     needs: build
-    uses: ./.github/workflows/reuse.yml
+    uses: ./.github/workflows/reusable.yml
+    with:
+      artifact-name: dist-files
   report:
     needs: [lint,  deploy]
     if: failure()
